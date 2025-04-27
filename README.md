@@ -1,17 +1,11 @@
 ### Step-by-Step Guide
 
-#### Step 1: 🚀 Initial Setup
-
-- Clone the repository: `git clone https://github.com/edwinhern/express-typescript.git`
-- Navigate: `cd express-typescript`
-- Install dependencies: `yarn install`
-
-#### Step 2: ⚙️ Environment Configuration
+#### Step 1: ⚙️ Environment Configuration
 
 - Create `.env`: Copy `.env.template` to `.env`
 - Update `.env`: Fill in necessary environment variables
 
-#### Step 3: 🏃‍♂️ Running the Project
+#### Step 2: 🏃‍♂️ Running the Project
 
 - Development Mode: `yarn start:dev`
 - Building: `yarn build`
