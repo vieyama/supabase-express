@@ -9,7 +9,7 @@ import errorHandler from "@/common/middleware/errorHandler";
 import rateLimiter from "@/common/middleware/rateLimiter";
 import requestLogger from "@/common/middleware/requestLogger";
 
-const allowedOrigins = ['http://localhost:3000', 'http://3.106.249.180:8080', 'https://my-properties.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'http://202.10.44.101:8080', 'https://my-properties.vercel.app'];
 
 const logger = pino({ name: "server start" });
 const app: Express = express();
