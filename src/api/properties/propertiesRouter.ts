@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createApiResponse } from "@/api-docs/openAPIResponseBuilders";
 import { validateRequest } from "@/common/utils/httpHandlers";
 import { propertiesController } from "./propertiesController";
-import { PropertiesSchema, GetPropertiesSchema, UploadAssetSchema } from "./propertiesModel";
+import { PropertiesSchema, GetPropertiesSchema, UploadAssetSchema, CreatePropertiesSchema } from "./propertiesModel";
 import { authMiddleware } from "@/common/middleware/authMiddleware";
 import { asyncHandler } from "@/common/utils/asyncHandler";
 import upload from "@/common/utils/fileUpload";
@@ -41,26 +41,25 @@ propertiesRegistry.registerPath({
 	},
 	responses: createApiResponse(z.array(PropertiesSchema), "Success"),
 });
-propertiesRouter.post("/", validateRequest(GetPropertiesSchema), propertiesController.createProperties);
+propertiesRouter.post("/", validateRequest({ body: CreatePropertiesSchema }), propertiesController.createProperties);
 
 propertiesRegistry.registerPath({
 	method: "delete",
 	path: "/properties/{id}",
 	tags: ["Properties", "Delete"],
-	request: { params: GetPropertiesSchema.shape.params },
+	request: { params: GetPropertiesSchema },
 	responses: createApiResponse(PropertiesSchema, "Success"),
 });
-propertiesRouter.delete("/:id", validateRequest(GetPropertiesSchema), propertiesController.deleteProperties);
+propertiesRouter.delete("/:id", propertiesController.deleteProperties);
 
 propertiesRegistry.registerPath({
 	method: "put",
 	path: "/properties/{id}",
 	tags: ["Properties", "Update"],
-	request: { params: GetPropertiesSchema.shape.params },
+	request: { params: GetPropertiesSchema },
 	responses: createApiResponse(PropertiesSchema, "Success"),
 });
-propertiesRouter.put("/:id", validateRequest(GetPropertiesSchema), propertiesController.updateProperties);
-
+propertiesRouter.put("/:id", propertiesController.updateProperties);
 
 propertiesRegistry.registerPath({
 	method: "post",
@@ -77,4 +76,4 @@ propertiesRegistry.registerPath({
 	},
 	responses: createApiResponse(z.array(PropertiesSchema), "Success"),
 });
-propertiesRouter.post("/upload", upload.single('file'), propertiesController.uploadAsset);
+propertiesRouter.post("/upload", upload.single('file'), validateRequest({ file: UploadAssetSchema }), propertiesController.uploadAsset);
